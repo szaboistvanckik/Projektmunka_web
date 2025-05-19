@@ -1,21 +1,56 @@
 body {
-    background-color: aliceblue;
     margin: 0;
+    background: #ececec;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: sans-serif;
 }
-
-div {
-    width: 300px;
-    height: 100px;
-    background: #ccddcc;
-    display: table;
+  
+.board {
+    background: #d48b61;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
-
-p {
-    text-align: center;
-    vertical-align: middle;
-    display: table-cell;
+  
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+  
+.top-row {
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+  
+.guesses, .feedback {
+    display: flex;
+    gap: 8px;
+}
+  
+.peg {
+    width: 28px;
+    height: 28px;
+    background: #5c3c1f;
+    border: 3px solid #000;
+    border-radius: 50%;
+}
+  
+.peg.small {
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid #000;
+}
+  
+.feedback {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 72px;
+    height: 28px;
+    align-content: center;
 }

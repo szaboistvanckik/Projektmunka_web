@@ -1,6 +1,13 @@
-function main() {
-    console.log("Helló Világ!")
+function gen_table() {
+    const row = document.querySelector(".rows .row");
+    const rows = document.querySelector(".rows");
+
+    for (let i = 0; i < 9; i++) {
+        const clone = row.cloneNode(true);
+        rows.appendChild(clone);
+    }
 }
 
-
-main();
+function main() {
+    gen_table();
+}

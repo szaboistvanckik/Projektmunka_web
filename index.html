@@ -1,15 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Írógép játék</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="event.js" defer></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Színözön</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="event.js" defer></script>
 </head>
+
 <body>
-    <div>
-        <p>Helló Világ!</p>
+  <button onclick="main()"></button>
+
+
+  <div class="board">
+    <div class="row top-row">
+      <div class="guess"></div>
+      <div class="guess"></div>
+      <div class="guess"></div>
+      <div class="guess"></div>
     </div>
+
+    <div class="rows">
+      <div class="row">
+        <div class="feedback">
+          <div class="peg small"></div>
+          <div class="peg small"></div>
+          <div class="peg small"></div>
+          <div class="peg small"></div>
+        </div>
+        <div class="guesses">
+          <div class="peg"></div>
+          <div class="peg"></div>
+          <div class="peg"></div>
+          <div class="peg"></div>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+
+  
 </body>
 </html>
