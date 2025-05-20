@@ -14,14 +14,18 @@ body {
     border-radius: 25px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
-  
+ 
+.rows .row {
+    display: none;
+}
+
 .row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 10px 0;
 }
-  
+
 .top-row {
     justify-content: center;
     gap: 10px;
