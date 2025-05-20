@@ -32,6 +32,10 @@ body {
     display: flex;
     gap: 8px;
 }
+
+.feedback {
+    margin-left: 15px;
+}
   
 .peg {
     width: 28px;
@@ -40,6 +44,24 @@ body {
     border: 3px solid #000;
     border-radius: 50%;
 }
+
+.colors {
+    margin-left: 20px;
+}
+
+.guess {
+    width: 28px;
+    height: 28px;
+    background: #5c3c1f;
+    border: 3px solid #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    color: red;
+}
+
   
 .peg.small {
     width: 10px;
@@ -53,4 +75,10 @@ body {
     width: 72px;
     height: 28px;
     align-content: center;
+}
+
+button {
+    position: absolute;
+    top: 20px;
+
 }
