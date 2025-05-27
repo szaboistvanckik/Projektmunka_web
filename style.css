@@ -21,7 +21,7 @@ body {
 
 .row {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     margin: 10px 0;
 }
@@ -53,13 +53,9 @@ body {
 }
 
 .peg.selected {
-    border: 2px solid gold;
+    border: 3px solid gold;
     box-shadow: 0 0 10px gold;
     transform: scale(1.05);
-}
-
-.colors {
-    margin-left: 20px;
 }
 
 .guess {
@@ -74,7 +70,6 @@ body {
     font-size: 25px;
     color: red;
 }
-
   
 .peg.small {
     width: 10px;
