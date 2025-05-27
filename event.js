@@ -8,6 +8,7 @@ const combination = [];
 let selected_c;
 let selected_e;
 let currentrow = 0;
+let gameover = false;
 
 function showbutton() {
     const verify = document.querySelector("button:last-of-type");
@@ -106,6 +107,72 @@ function gen_table() {
     gen_color(combination);
 }
 
+function check(cur) {
+    const guesspegs = cur.querySelectorAll('.guesses .peg');
+    const feedbackpegs = cur.querySelectorAll('.feedback .peg');
+    
+    const guess = [];
+    for (let peg of guesspegs) {
+        guess.push(peg.style.backgroundColor);
+    }
+
+    const used_guess = [false, false, false, false];
+    const used_combo = [false, false, false, false];
+
+    let blacks = 0;
+    let whites = 0;
+    let isfound = false;
+
+    for (let i = 0; i < 4; i++) {
+        if (guess[i] == combination[i]) {
+            blacks++;
+            used_guess[i] = true;
+            used_combo[i] = true;
+        }
+    }
+
+    for (let i = 0; i < 4; i++) {
+        if (!used_guess[i]) {
+            isfound = false;
+
+            for (let j = 0; j < 4 && !isfound; j++) {
+                if (!used_combo[j] && guess[i] == combination[j]) {
+                    whites++;
+
+                    used_guess[i] = true;
+                    used_combo[j] = true;
+
+                    isfound = true;
+                }
+            }
+        }
+    }
+
+    let ind = 0;
+    for (let i = 0; i < blacks; i++) {
+        feedbackpegs[ind++].style.backgroundColor = 'black';
+    }
+    for (let i = 0; i < whites; i++) {
+        feedbackpegs[ind++].style.backgroundColor = 'white';
+    }
+
+    if (blacks == 4) {
+        win();
+    }
+}
+
+function win() {
+    const trow = document.querySelector('.top-row');
+    const tpeg = trow.querySelectorAll('.guess');
+
+    for (let i = 0; i < 4; i++) {
+        tpeg[i].style.backgroundColor = combination[i];
+        tpeg[i].innerHTML = "";
+    }
+
+    alert("Gratulálok, nyertél!");
+}
+
 function submit() {
     const rows = document.querySelectorAll('.rows .row');
     const cur = rows[currentrow];
@@ -119,13 +186,13 @@ function submit() {
     }
 
     if (allcolored) {
-        currentrow++;
+        check(cur);
+        if (++currentrow == 10) alert("Vesztettél!");
         console.log("moving to:", currentrow);
     } else {
         alert("Rakj le 4 színt az ellenőrzéshez!");
     }
 }
-
 
 function main() {
     gen_table();
