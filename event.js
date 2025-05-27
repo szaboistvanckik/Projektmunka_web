@@ -9,6 +9,8 @@ let selected_e;
 function gen_table() {
     const row = document.querySelector(".rows .row");
     const rows = document.querySelector(".rows");
+    const verify = document.querySelector("button:last-of-type");
+    verify.style.display = 'flex';
     
     const f_colorpeg = row.querySelector('.colors .peg');
     f_colorpeg.style.backgroundColor = colors[0];
