@@ -7,6 +7,7 @@ const combination = [];
 
 let selected_c;
 let selected_e;
+let currentrow = 0;
 
 function showbutton() {
     const verify = document.querySelector("button:last-of-type");
@@ -32,7 +33,14 @@ function select(element, color) {
 }
 
 function place(cur) {
-    cur.style.backgroundColor == selected_c ? cur.style.backgroundColor = "#5c3c1f" : cur.style.backgroundColor = selected_c;
+    const row = cur.closest('.row');
+    const rows = document.querySelectorAll('.rows .row');
+
+    if ([...rows].indexOf(row) == currentrow) {
+        cur.style.backgroundColor == selected_c
+        ? cur.style.backgroundColor = "#5c3c1f"
+        : cur.style.backgroundColor = selected_c;
+    }
 }
 
 function gen_colorpeg(row) {
@@ -99,8 +107,25 @@ function gen_table() {
 }
 
 function submit() {
-    console.log("submit");
+    const rows = document.querySelectorAll('.rows .row');
+    const cur = rows[currentrow];
+    const guesspegs = cur.querySelectorAll('.guesses .peg');
+    
+    let allcolored = true;
+    for (let i = 0; i < guesspegs.length && allcolored; i++) {
+        if (!guesspegs[i].style.backgroundColor) {
+            allcolored = false;
+        }
+    }
+
+    if (allcolored) {
+        currentrow++;
+        console.log("moving to:", currentrow);
+    } else {
+        alert("Rakj le 4 színt az ellenőrzéshez!");
+    }
 }
+
 
 function main() {
     gen_table();
