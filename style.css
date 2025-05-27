@@ -80,6 +80,7 @@ body {
     height: 10px;
     border: 1.5px solid black;
     background: #75685c;
+    cursor: default;
 }
   
 .feedback {
@@ -90,14 +91,13 @@ body {
     align-content: center;
 }
 
-button:last-of-type {
-    position: absolute;
-    top: 50px;
-    display: none;
-}
-
 button {
     position: absolute;
     top: 20px;
 }
 
+button:last-of-type {
+    position: absolute;
+    top: 50px;
+    display: none;
+}

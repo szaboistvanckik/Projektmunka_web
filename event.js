@@ -9,6 +9,7 @@ let selected_c;
 let selected_e;
 let currentrow = 0;
 let gameover = false;
+let gamestarted = false;
 
 function showbutton() {
     const verify = document.querySelector("button:last-of-type");
@@ -16,6 +17,8 @@ function showbutton() {
 }
 
 function select(element, color) {
+    if (gameover) return;
+
     if (selected_e == element) {
         element.classList.remove('selected');
         selected_e = null;
@@ -34,6 +37,8 @@ function select(element, color) {
 }
 
 function place(cur) {
+    if (gameover) return;
+
     const row = cur.closest('.row');
     const rows = document.querySelectorAll('.rows .row');
 
@@ -95,16 +100,6 @@ function gen_color(arr) {
     }
 
     console.log("combination: " + arr);
-}
-
-function gen_table() {
-    const row = document.querySelector(".rows .row");
-    const rows = document.querySelector(".rows");
-
-    showbutton();
-    gen_colorpeg(row);
-    clone(rows, row);
-    gen_color(combination);
 }
 
 function check(cur) {
@@ -171,9 +166,12 @@ function win() {
     }
 
     alert("Gratulálok, nyertél!");
+    gameover = true;
 }
 
 function submit() {
+    if (gameover) return;
+
     const rows = document.querySelectorAll('.rows .row');
     const cur = rows[currentrow];
     const guesspegs = cur.querySelectorAll('.guesses .peg');
@@ -187,13 +185,78 @@ function submit() {
 
     if (allcolored) {
         check(cur);
-        if (++currentrow == 10) alert("Vesztettél!");
+        if (++currentrow == 10) {
+            alert("Vesztettél!");
+            gameover = true;
+        }
         console.log("moving to:", currentrow);
     } else {
         alert("Rakj le 4 színt az ellenőrzéshez!");
     }
 }
 
+function gen_table() {
+    const row = document.querySelector(".rows .row");
+    const rows = document.querySelector(".rows");
+
+    showbutton();
+    gen_colorpeg(row);
+    clone(rows, row);
+    gen_color(combination);
+}
+
+function reset() {
+    const rows = document.querySelector(".rows");
+
+    gameover = false;
+    currentrow = 0;
+    selected_c = null;
+    selected_e = null;
+
+    const trow = document.querySelector('.top-row');
+    const tpeg = trow.querySelectorAll('.guess');
+    for (let peg of tpeg) {
+        peg.style.backgroundColor = '';
+        peg.textContent = '?';
+    }
+
+    while (rows.firstChild) {
+        rows.removeChild(rows.firstChild);
+    }
+
+    const newrow = document.createElement('div');
+    newrow.classList.add('row');
+    
+    newrow.innerHTML = `
+        <div class="guesses">
+            <div class="peg"></div>
+            <div class="peg"></div>
+            <div class="peg"></div>
+            <div class="peg"></div>
+        </div>
+        <div class="feedback">
+            <div class="peg small"></div>
+            <div class="peg small"></div>
+            <div class="peg small"></div>
+            <div class="peg small"></div>
+        </div>
+        <div class="colors">
+            <div class="peg"></div>
+        </div>
+    `;
+
+    rows.appendChild(newrow);
+}
+
+
 function main() {
+    if (gamestarted) {
+        reset();
+    }
+
     gen_table();
+    const btn = document.querySelector("button:first-of-type");
+    btn.innerHTML = "Reset";
+
+    gamestarted = true;
 }
