@@ -18,12 +18,11 @@ function select(element, color) {
         element.classList.remove('selected');
         selected_e = null;
         selected_c = null;
-
     } else {
         if (selected_e) {
             selected_e.classList.remove('selected');
         }
-        
+
         element.classList.add('selected');
         selected_e = element;
         selected_c = color;
@@ -32,21 +31,39 @@ function select(element, color) {
     console.log(selected_c);
 }
 
+function place(cur) {
+    cur.style.backgroundColor == selected_c ? cur.style.backgroundColor = "#5c3c1f" : cur.style.backgroundColor = selected_c;
+}
+
 function gen_colorpeg(row) {
     const f_colorpeg = row.querySelector('.colors .peg');
     f_colorpeg.style.backgroundColor = colors[0];
     row.style.display = 'flex';
-    
+
     f_colorpeg.addEventListener('click', function() {
         select(f_colorpeg, colors[0]);
     });
+
+    const guesspegs = row.querySelectorAll('.guesses .peg');
+    for (let i = 0; i < guesspegs.length; i++) {
+        guesspegs[i].addEventListener('click', function() {
+            place(guesspegs[i]);
+        });
+    }
 }
 
 function clone(rows, row) {
     for (let i = 1; i < 10; i++) {
         const clone = row.cloneNode(true);
         const colorpeg = clone.querySelector('.colors .peg');
-        
+        const guesspegs = clone.querySelectorAll('.guesses .peg');
+
+        for (let i = 0; i < guesspegs.length; i++) {
+            guesspegs[i].addEventListener('click', function() {
+                place(guesspegs[i]);
+            });
+        }
+
         if (i - 1 < colors.length - 1) {
             colorpeg.style.backgroundColor = colors[i];
             colorpeg.addEventListener('click', function() {
@@ -55,13 +72,13 @@ function clone(rows, row) {
         } else {
             colorpeg.remove();
         }
-        
+
         rows.appendChild(clone);
     }
 }
 
 function gen_color(arr) {
-    arr = [];
+    arr.length = 0;
 
     while (arr.length < 4) {
         const randc = colors[Math.floor(Math.random() * colors.length)];
